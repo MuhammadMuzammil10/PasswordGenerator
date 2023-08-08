@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <h2>Password Generator</h2>
+        <hr>
+        <div class="password-box">
+            <input type="text" id="txt" disabled>
+            <i class="uil uil-copy copy-icon"></i>
+        </div>
+        <div class="range-box">
+            <input type="range" min="6" max="15" value="8" id="range">
+            <span id="rangeNumber" class="slider-number">9</span>
+        </div>
+        <button id="btn" class="generate-button">Generate Password</button>
+    </div>
+
+
+    <script>
+        slidernumber = document.getElementById('rangeNumber');
+        rangeinput = document.getElementById('range');
+        generatebtn = document.getElementById('btn')
+        passwordInput = document.getElementById('txt')
+        copyIcon = document.querySelector('.password-box .copy-icon')
+
+        
+        
+        rangeinput.addEventListener('input', () => {
+            slidernumber.innerHTML = rangeinput.value
+            //GeneratePassword()
+        })
+        
+        function GeneratePassword() {
+            let generatePassword = ""
+            allCharacter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&abcdefghijklmnopqrstuvwxyz"
+
+            for (i = 1; i <= rangeinput.value ; i++) {
+                randomNumber = Math.floor(Math.random() * allCharacter.length)
+                generatePassword += allCharacter[randomNumber]
+                passwordInput.value = generatePassword
+            }
+        }
+
+        copyIcon.addEventListener('click', () => {
+            console.log(navigator.clipboard.writeText(passwordInput.value))
+            copyIcon.classList.replace("uil-copy", "uil-file-check-alt");
+        })
+
+        generatebtn.addEventListener('click', GeneratePassword)
+    </script>
+</body>
+
+</html>
